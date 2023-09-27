@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: BusinessIntegration
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    uniqueConstraintName: username
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: blog_posts
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: content
+                  type: varchar(10000)
+              - column:
+                  name: edited_at
+                  type: timestamp
+              - column:
+                  name: views
+                  type: bigint
+              - column:
+                  name: author_id
+                  type: bigint
+        - loadData:
+            file:  liquibase/initial_data/users.csv
+            encoding: UTF-8
+            tableName: users
+            columns:
+              - column:
+                  header: username
+                  name: username
+                  type: varchar(255)
+              - column:
+                  header: password
+                  name: password
+                  type: varchar(255)
+        - loadData:
+            file: liquibase/initial_data/blog_posts.csv
+            encoding: UTF-8
+            separator: ;
+            tableName: blog_posts
+            columns:
+              - column:
+                  header: title
+                  name: title
+                  type: varchar(255)
+              - column:
+                  header: content
+                  name: content
+                  type: varchar(10000)
+              - column:
+                  header: author_id
+                  name: author_id
+                  type: bigint
+              - column:
+                  header: edited_at
+                  name: edited_at
+                  type: timestamp
+              - column:
+                  header: views
+                  name: views
+                  type: bigint
+

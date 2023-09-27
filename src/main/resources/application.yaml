@@ -1,0 +1,18 @@
+server:
+  port: 8088
+
+spring:
+  liquibase:
+    enabled: true
+    change-log: liquibase/changelog.yaml
+
+  datasource:
+    url: jdbc:h2:file:./target/h2db/db/blog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+    username: admin
+    password:
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
